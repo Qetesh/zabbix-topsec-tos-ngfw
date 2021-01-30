@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-01-30T14:01:39Z</date>
+    <groups>
+        <group>
+            <name>Templates/Network devices</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template Net TOPSEC SNMPv2</template>
+            <name>Template Net TOPSEC SNMPv2</name>
+            <description>天融信防火墙</description>
+            <templates>
+                <template>
+                    <name>Template Module Generic SNMPv2</name>
+                </template>
+            </templates>
+            <groups>
+                <group>
+                    <name>Templates/Network devices</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Network interfaces</name>
+                </application>
+                <application>
+                    <name>System</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>System connections</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.4.9.0</snmp_oid>
+                    <key>system.connections</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(10m)}&gt;100000</expression>
+                            <name>{HOST.NAME}天融信防火墙最大会话数超过10w条</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>System CPS</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.4.10.0</snmp_oid>
+                    <key>system.cps</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <description>new connections per second.</description>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>System CPU load</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.4.5.0</snmp_oid>
+                    <key>system.cpu</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(15m)}&gt;50</expression>
+                            <name>{HOST.NAME}天融信防火墙CPU{ITEM.LASTVALUE1}</name>
+                            <opdata>当前CPU：{ITEM.LASTVALUE1}</opdata>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>ProductMaxSessionn</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.3.15.0</snmp_oid>
+                    <key>system.maxsession</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>System MEM Free</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.4.7.0</snmp_oid>
+                    <key>system.mem.free</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>System MEM load</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.4.6.0</snmp_oid>
+                    <key>system.mem.load</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(15m)}&gt;50</expression>
+                            <name>{HOST.NAME}天融信防火墙内存{ITEM.LASTVALUE1}</name>
+                            <opdata>当前CPU：{ITEM.LASTVALUE1}</opdata>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>System MEM Total</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.4.8.0</snmp_oid>
+                    <key>system.mem.total</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>ProductSN</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.3.1.0</snmp_oid>
+                    <key>system.sn</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{change()}=1</expression>
+                            <name>{HOST.NAME}天融信防火墙序列号变更，可能发生HA切换</name>
+                            <priority>HIGH</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>System time</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.4.2.0</snmp_oid>
+                    <key>system.time</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>ProductType</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.3.2.0</snmp_oid>
+                    <key>system.type</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>System online users</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.4.4.0</snmp_oid>
+                    <key>system.user</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>ProductVersion</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.3.3.0</snmp_oid>
+                    <key>system.version</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{change()}=1</expression>
+                            <name>{HOST.NAME}天融信防火墙版本发生变化</name>
+                            <priority>INFO</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Network Topsec interfaces discovery</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#IFINDEX},1.3.6.1.4.1.14331.5.5.1.5.1.1,{#IFADMINSTATUS},1.3.6.1.4.1.14331.5.5.1.5.1.8,{#IFDESCR},1.3.6.1.4.1.14331.5.5.1.5.1.2]</snmp_oid>
+                    <key>net.topsec.if.discovery</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <evaltype>AND</evaltype>
+                    </filter>
+                    <description>Discovering interfaces from IF-MIB.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Interface {#IFDESCR}: Duplex status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.5.1.4.{#SNMPINDEX}</snmp_oid>
+                            <key>net.topsec.if.duplex[dot3StatsDuplexStatus.{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <applications>
+                                <application>
+                                    <name>Network interfaces</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>1h</params>
+                                </step>
+                            </preprocessing>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&lt;&gt;&quot;full&quot;</expression>
+                                    <name>Interface {#IFDESCR}: In half-duplex mode</name>
+                                    <priority>WARNING</priority>
+                                    <description>Please check autonegotiation settings and cabling</description>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Interface {#IFDESCR}: Inbound packets discarded</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.5.1.17.{#SNMPINDEX}</snmp_oid>
+                            <key>net.topsec.if.in.discards[ifInDiscards.{#SNMPINDEX}]</key>
+                            <delay>3m</delay>
+                            <history>7d</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Network interfaces</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Interface {#IFDESCR}: Inbound packets with errors</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.5.1.18.{#SNMPINDEX}</snmp_oid>
+                            <key>net.topsec.if.in.errors[ifInErrors.{#SNMPINDEX}]</key>
+                            <delay>3m</delay>
+                            <history>7d</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Network interfaces</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Interface {#IFDESCR}: Bits received</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.5.1.21.{#SNMPINDEX}</snmp_oid>
+                            <key>net.topsec.if.in[ifHCInOctets.{#SNMPINDEX}]</key>
+                            <delay>3m</delay>
+                            <history>7d</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Network interfaces</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Interface {#IFDESCR}: Outbound packets discarded</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.5.1.24.{#SNMPINDEX}</snmp_oid>
+                            <key>net.topsec.if.out.discards[ifOutDiscards.{#SNMPINDEX}]</key>
+                            <delay>3m</delay>
+                            <history>7d</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Network interfaces</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Interface {#IFDESCR}: Outbound packets with errors</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.5.1.25.{#SNMPINDEX}</snmp_oid>
+                            <key>net.topsec.if.out.errors[ifOutErrors.{#SNMPINDEX}]</key>
+                            <delay>3m</delay>
+                            <history>7d</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Network interfaces</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Interface {#IFDESCR}: Bits sent</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.5.1.28.{#SNMPINDEX}</snmp_oid>
+                            <key>net.topsec.if.out[ifHCOutOctets.{#SNMPINDEX}]</key>
+                            <delay>3m</delay>
+                            <history>7d</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Network interfaces</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Interface {#IFDESCR}: Speed</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.5.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>net.topsec.if.speed[ifHighSpeed.{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Network interfaces</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <params>1h</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Interface {#IFDESCR}: Operational status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.14331.5.5.1.5.1.9.{#SNMPINDEX}</snmp_oid>
+                            <key>net.topsec.if.status[ifOperStatus.{#SNMPINDEX}]</key>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <applications>
+                                <application>
+                                    <name>Network interfaces</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>SNMP interface status (ifOperStatus)</name>
+                            </valuemap>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{$IFCONTROL:&quot;{#IFDESCR}&quot;}=1 and {last()}=2 and {diff()}=1</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>{last()}&lt;&gt;2</recovery_expression>
+                                    <name>Interface {#IFDESCR}: Link down</name>
+                                    <opdata>Current state: {ITEM.LASTVALUE1}</opdata>
+                                    <priority>AVERAGE</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{Template Net TOPSEC SNMPv2:net.topsec.if.speed[ifHighSpeed.{#SNMPINDEX}].change()}&lt;0 and {Template Net TOPSEC SNMPv2:net.topsec.if.speed[ifHighSpeed.{#SNMPINDEX}].last()}&gt;0 and {Template Net TOPSEC SNMPv2:net.topsec.if.status[ifOperStatus.{#SNMPINDEX}].last()}&lt;&gt;2</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>{Template Net TOPSEC SNMPv2:net.topsec.if.speed[ifHighSpeed.{#SNMPINDEX}].change()}&gt;0 and {Template Net TOPSEC SNMPv2:net.topsec.if.speed[ifHighSpeed.{#SNMPINDEX}].prev()}&gt;0 and {Template Net TOPSEC SNMPv2:net.topsec.if.status[ifOperStatus.{#SNMPINDEX}].last()}=2</recovery_expression>
+                            <name>Interface {#IFDESCR}: Ethernet has changed to lower speed than it was before</name>
+                            <opdata>Current reported speed: {ITEM.LASTVALUE1}</opdata>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>Interface {#IFDESCR}: Link down</name>
+                                    <expression>{$IFCONTROL:&quot;{#IFDESCR}&quot;}=1 and {Template Net TOPSEC SNMPv2:net.topsec.if.status[ifOperStatus.{#SNMPINDEX}].last()}=2 and {Template Net TOPSEC SNMPv2:net.topsec.if.status[ifOperStatus.{#SNMPINDEX}].diff()}=1</expression>
+                                    <recovery_expression>{Template Net TOPSEC SNMPv2:net.topsec.if.status[ifOperStatus.{#SNMPINDEX}].last()}&lt;&gt;2</recovery_expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template Net TOPSEC SNMPv2:net.topsec.if.in.errors[ifInErrors.{#SNMPINDEX}].min(5m)}&gt;{$IF.ERRORS.WARN:&quot;{#IFDESCR}&quot;} or {Template Net TOPSEC SNMPv2:net.topsec.if.out.errors[ifOutErrors.{#SNMPINDEX}].min(5m)}&gt;{$IF.ERRORS.WARN:&quot;{#IFDESCR}&quot;}</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>{Template Net TOPSEC SNMPv2:net.topsec.if.in.errors[ifInErrors.{#SNMPINDEX}].max(5m)}&lt;{$IF.ERRORS.WARN:&quot;{#IFDESCR}&quot;}*0.8 and&#13;
+{Template Net TOPSEC SNMPv2:net.topsec.if.out.errors[ifOutErrors.{#SNMPINDEX}].max(5m)}&lt;{$IF.ERRORS.WARN:&quot;{#IFDESCR}&quot;}*0.8</recovery_expression>
+                            <name>Interface {#IFDESCR}: High error rate ( &gt; {$IF.ERRORS.WARN:&quot;{#IFDESCR}&quot;} for 5m)</name>
+                            <opdata>errors in: {ITEM.LASTVALUE1}, errors out: {ITEM.LASTVALUE2}</opdata>
+                            <priority>WARNING</priority>
+                            <description>Recovers when below 80% of {$IF.ERRORS.WARN:&quot;{#IFDESCR}&quot;} threshold</description>
+                            <manual_close>YES</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>Interface {#IFDESCR}: Link down</name>
+                                    <expression>{$IFCONTROL:&quot;{#IFDESCR}&quot;}=1 and {Template Net TOPSEC SNMPv2:net.topsec.if.status[ifOperStatus.{#SNMPINDEX}].last()}=2 and {Template Net TOPSEC SNMPv2:net.topsec.if.status[ifOperStatus.{#SNMPINDEX}].diff()}=1</expression>
+                                    <recovery_expression>{Template Net TOPSEC SNMPv2:net.topsec.if.status[ifOperStatus.{#SNMPINDEX}].last()}&lt;&gt;2</recovery_expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Interface {#IFDESCR}: Network traffic</name>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>FILLED_REGION</drawtype>
+                                    <color>5CCD18</color>
+                                    <item>
+                                        <host>Template Net TOPSEC SNMPv2</host>
+                                        <key>net.topsec.if.in[ifHCInOctets.{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>FILLED_REGION</drawtype>
+                                    <color>BB2A02</color>
+                                    <item>
+                                        <host>Template Net TOPSEC SNMPv2</host>
+                                        <key>net.topsec.if.out[ifHCOutOctets.{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <color>5A2B57</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>Template Net TOPSEC SNMPv2</host>
+                                        <key>net.topsec.if.in.discards[ifInDiscards.{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>3</sortorder>
+                                    <color>89ABF8</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>Template Net TOPSEC SNMPv2</host>
+                                        <key>net.topsec.if.in.errors[ifInErrors.{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>4</sortorder>
+                                    <color>7EC25C</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>Template Net TOPSEC SNMPv2</host>
+                                        <key>net.topsec.if.out.discards[ifOutDiscards.{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>5</sortorder>
+                                    <color>274482</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>Template Net TOPSEC SNMPv2</host>
+                                        <key>net.topsec.if.out.errors[ifOutErrors.{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$CPU.UTIL.CRIT}</macro>
+                    <value>50</value>
+                </macro>
+                <macro>
+                    <macro>{$FAN_CRIT_STATUS}</macro>
+                    <value>2</value>
+                </macro>
+                <macro>
+                    <macro>{$MEMORY.UTIL.MAX}</macro>
+                    <value>50</value>
+                </macro>
+                <macro>
+                    <macro>{$TEMP_CRIT}</macro>
+                    <value>60</value>
+                </macro>
+                <macro>
+                    <macro>{$TEMP_CRIT_LOW}</macro>
+                    <value>5</value>
+                </macro>
+                <macro>
+                    <macro>{$TEMP_WARN}</macro>
+                    <value>50</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+    <value_maps>
+        <value_map>
+            <name>SNMP interface status (ifOperStatus)</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>up</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>testing</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>unknown</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>dormant</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>notPresent</newvalue>
+                </mapping>
+                <mapping>
+                    <value>7</value>
+                    <newvalue>lowerLayerDown</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
