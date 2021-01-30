@@ -1,0 +1,74 @@
+-- **********************************************************************
+-- TOS-LIC.mib
+--
+-- Topsec Enterprise Specific MIB: Structure of Management Information
+--
+-- Copyright (c) 1998-2008, Beijing Topsec Network Security Technology Co.,Ltd. 
+-- All Rights Reserved
+--
+-- The contents of this document are subject to change without notice.
+-- **********************************************************************
+--
+--  Change History:
+--
+--	Nov 12,2008 - founded by tos lk 
+--
+-- **********************************************************************
+
+TOS-LIC DEFINITIONS ::= BEGIN
+
+	IMPORTS
+	    MODULE-IDENTITY,NOTIFICATION-TYPE,OBJECT-TYPE,                                       
+	    Integer32, Opaque,Gauge32,IpAddress   
+	    FROM SNMPv2-SMI
+	    
+	    TEXTUAL-CONVENTION,DisplayString,DateAndTime
+			FROM SNMPv2-TC
+			
+			tosMib
+			FROM TOS-SMI;
+
+	--start list TOS License table information
+	tosLicenseTable OBJECT-TYPE 
+	   SYNTAX      SEQUENCE OF TosLicenseEntry	
+	   MAX-ACCESS  not-accessible
+	   STATUS      current
+	
+			DESCRIPTION
+		       	  "The (conceptual) table containing License information."	
+		::= { tosMib 17  }
+
+	tosLicenseEntry OBJECT-TYPE
+		SYNTAX     TosLicenseEntry
+		MAX-ACCESS not-accessible
+		STATUS     current
+		DESCRIPTION
+		        "An entry (conceptual row) containing the information of license information."
+		INDEX      {  licenseIndex }
+		::= {  tosLicenseTable 1 }
+
+	TosLicenseEntry ::= SEQUENCE {
+		licenseIndex              INTEGER,
+		licenseContent            DisplayString
+	     }
+
+	licenseIndex OBJECT-TYPE
+		SYNTAX      INTEGER
+		MAX-ACCESS  read-only
+		STATUS      current
+		DESCRIPTION
+		        "The Index of the license table ."
+		::= { tosLicenseEntry 1 }
+
+
+	licenseContent  OBJECT-TYPE
+		SYNTAX      DisplayString
+		MAX-ACCESS  read-only
+		STATUS      current
+		DESCRIPTION
+		        "The detail information of license."
+		::= { tosLicenseEntry 2 }
+	--end list TOS License table information
+
+END
+
