@@ -1,4 +1,4 @@
-# zabbix-topsec-tos-ngfw
+# zabbix-TOPSEC TOS NGFW SNMPv2
 天融信防火墙zabbix监控模板
 
 基于老tos系统，需设备开启snmp v2c服务
@@ -21,3 +21,6 @@
 - 端口出丢包
 - 端口出错误包
 - 端口速度
+
+
+感谢[Traveller](https://github.com/TravellerXi)提供zabbix 4.0支持
